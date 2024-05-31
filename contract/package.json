@@ -1,0 +1,17 @@
+{
+  "name": "forge-starter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/thirdweb-example/forge-starter.git",
+  "author": "thirdweb <eng@thirdweb.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@chainlink/contracts": "^1.1.1",
+    "@thirdweb-dev/contracts": "^3"
+  },
+  "scripts": {
+    "build": "npx thirdweb@latest detect",
+    "deploy": "npx thirdweb@latest deploy",
+    "release": "npx thirdweb@latest release"
+  }
+}
