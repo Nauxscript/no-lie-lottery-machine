@@ -1,25 +1,52 @@
+'use client';
 import Image from "next/image";
 import { ConnectButton } from "thirdweb/react";
 import thirdwebIcon from "@public/thirdweb.svg";
 import { client } from "./client";
+import { useState } from "react";
 
 export default function Home() {
+  const [result, setResult] = useState('')
   return (
     <main className="p-4 pb-10 min-h-[100vh] flex items-center justify-center container max-w-screen-lg mx-auto">
       <div className="py-20">
         <Header />
 
-        <div className="flex justify-center mb-20">
           <ConnectButton
-            client={client}
-            appMetadata={{
-              name: "Example App",
-              url: "https://example.com",
-            }}
-          />
-        </div>
+           client={client}
+           appMetadata={{
+             name: "Example App",
+             url: "https://example.com",
+           }}
+         />
+        <div className="flex flex-col justify-center mb-20 text-gray-800"></div>
+          <div className="">
+            <input type="text" placeholder="Enter text" className="mr-2 bg-black" />
+            <input type="number" placeholder="Enter number" className="mr-2 bg-black" />
+          </div>
 
-        <ThirdwebResources />
+          <div className="">
+            <input type="text" placeholder="Enter text" className="mr-2 bg-black" />
+            <input type="number" placeholder="Enter number" className="mr-2 bg-black" />
+          </div>
+
+          <button onClick={() => setResult('📱') } > start </button>
+          {result && <p>{result}</p>}
+
+
+          
+
+          {/* <input type="text" placeholder="Enter text" className="mr-2" />
+          <input type="number" placeholder="Enter number" className="mr-2" />
+
+          <input type="text" placeholder="Enter text" className="mr-2" />
+          <input type="number" placeholder="Enter number" className="mr-2" />
+
+          <input type="text" placeholder="Enter text" className="mr-2" />
+          <input type="number" placeholder="Enter number" className="mr-2" /> */}
+          
+
+ {/*       <ThirdwebResources /> */}
       </div>
     </main>
   );
