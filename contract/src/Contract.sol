@@ -1,12 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-// import {IVRFCoordinatorV2Plus} from "@chainlink/contracts@1.1.1/src/v0.8/vrf/dev/interfaces/IVRFCoordinatorV2Plus.sol";
-// import {VRFConsumerBaseV2Plus} from "@chainlink/contracts@1.1.1/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol";
-// import {VRFV2PlusClient} from "@chainlink/contracts@1.1.1/src/v0.8/vrf/dev/libraries/VRFV2PlusClient.sol";
-import "contract/lib/chainlink/contracts/src/v0.8/vrf/dev/interfaces/IVRFCoordinatorV2Plus.sol";
-import "contract/lib/chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol";
-import "contract/lib/chainlink/contracts/src/v0.8/vrf/dev/libraries/VRFV2PlusClient.sol";
+import "foundry-chainlink-toolkit/lib/chainlink-brownie-contracts/contracts/src/v0.8/dev/interfaces/IVRFCoordinatorV2Plus.sol";
+import "foundry-chainlink-toolkit/lib/chainlink-brownie-contracts/contracts/src/v0.8/dev/vrf/VRFConsumerBaseV2Plus.sol";
+import "foundry-chainlink-toolkit/lib/chainlink-brownie-contracts/contracts/src/v0.8/dev/vrf/libraries/VRFV2PlusClient.sol";
 
 struct ProbabilityItem {
     string name;
@@ -129,8 +126,8 @@ contract Lottery is VRFConsumerBaseV2Plus {
         return ruleId;
     }
 
-    function getRules() public view returns (uint256[] memory) {
-        return owner2rules[msg.sender];
+    function getRules(address user) public view returns (uint256[] memory) {
+        return owner2rules[user];
     }
 
     function getRule(uint256 ruleId) public view returns (Rule memory) {
@@ -153,9 +150,9 @@ contract Lottery is VRFConsumerBaseV2Plus {
         return "";
     }
 
-    function getReward(uint256 ruleId)
+    function getReward(uint256 ruleId, address user)
         external
-        onlyOwner
+        // onlyOwner
         returns (uint256 requestId)
     {
         requestId = COORDINATOR.requestRandomWords(
@@ -174,7 +171,7 @@ contract Lottery is VRFConsumerBaseV2Plus {
             randomWords: new uint256[](0),
             exists: true,
             fulfilled: false,
-            user: msg.sender,
+            user: user,
             ruleId: ruleId,
             reward: ""
         });
@@ -237,12 +234,14 @@ contract Lottery is VRFConsumerBaseV2Plus {
         }));
     }
 
-    function getResults() public view returns(Result[] memory results) {
-        return user2results[msg.sender];
+    function getResults(address user) public view returns(Result[] memory results) {
+        require(user != address(0), "The user address cannot be empty");
+        return user2results[user];
     }
 
-    function getLastResult() public view returns(Result memory result) {
-        Result[] memory results = this.getResults();
+    function getLastResult(address user) public view returns(Result memory result) {
+        require(user != address(0), "The user address cannot be empty");
+        Result[] memory results = this.getResults(user);
         require(results.length > 0, "The current user has no lottery results");
         return results[results.length - 1];
     }

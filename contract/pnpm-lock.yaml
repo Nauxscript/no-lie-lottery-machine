@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@chainlink/contracts':
-    specifier: ^1.1.1
-    version: 1.1.1(ethers@5.7.2)
+    specifier: ^1.1.0
+    version: 1.1.0(ethers@5.7.2)
   '@thirdweb-dev/contracts':
     specifier: ^3
     version: 3.15.0
@@ -44,8 +44,8 @@ packages:
       regenerator-runtime: 0.14.1
     dev: false
 
-  /@chainlink/contracts@1.1.1(ethers@5.7.2):
-    resolution: {integrity: sha512-bAjusEonAqlaT0rndBIlcmYtI923p1r/OVqyd+NGtP0EpZmCJkOB8/I61xiUN3FIMC8IBZl68zYZdTiq/Y8MhQ==}
+  /@chainlink/contracts@1.1.0(ethers@5.7.2):
+    resolution: {integrity: sha512-J+gDUCnEOJ2ofCvy5L2VLrQ7DVs0NXK31w8MQrW6U1GpjzU1j+it7FOJHZMxZKGg7wDdWI06aWmCgFeiD1H+bA==}
     dependencies:
       '@changesets/changelog-github': 0.4.8
       '@changesets/cli': 2.26.2

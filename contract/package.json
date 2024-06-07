@@ -6,7 +6,7 @@
   "author": "thirdweb <eng@thirdweb.com>",
   "license": "MIT",
   "dependencies": {
-    "@chainlink/contracts": "^1.1.1",
+    "@chainlink/contracts": "^1.1.0",
     "@thirdweb-dev/contracts": "^3"
   },
   "scripts": {
