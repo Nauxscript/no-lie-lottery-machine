@@ -4,55 +4,73 @@ import { ConnectButton } from "thirdweb/react";
 import thirdwebIcon from "@public/thirdweb.svg";
 import { client } from "./client";
 import { useState } from "react";
+import RuleItem from "./components/ruleItem";
 
 export default function Home() {
   const [result, setResult] = useState('')
+  const [rules, setRules] = useState([
+    ['', ''],
+  ])
+  const addRule = () => {
+    if (rules.length >= 36) return
+    setRules([...rules, ['', '']])
+  }
+
+  const [checked, setChecked] = useState(false)
   return (
-    <main className="p-4 pb-10 min-h-[100vh] flex items-center justify-center container max-w-screen-lg mx-auto">
-      <div className="py-20">
-        <Header />
+    <main className="p-4 pb-10 min-h-[100vh] flex flex-col items-center container max-w-screen-lg mx-auto">
+      <Header />
+      <div className="container-content  w-full">
+        <div className="flex gap-14">
+          <div className="card flex flex-col gap-4 flex-1">
+          <p className="">Ruleset</p>
+            {
+              rules.map((rule, index) => (
+                <RuleItem key={index}></RuleItem>
+              ))
+            }
+            <button className="btn" onClick={addRule}> Add + </button>
 
-          <ConnectButton
-           client={client}
-           appMetadata={{
-             name: "Example App",
-             url: "https://example.com",
-           }}
-         />
-        <div className="flex flex-col justify-center mb-20 text-gray-800"></div>
-          <div className="">
-            <input type="text" placeholder="Enter text" className="mr-2 bg-black" />
-            <input type="number" placeholder="Enter number" className="mr-2 bg-black" />
+          </div>
+          <div className="flex flex-col gap-4 flex-1">
+            <div>
+              <p className="pb-4">Description</p>
+              <textarea className="textarea textarea-bordered w-full" placeholder="Description..."></textarea>
+            </div>
+            <div>
+              <p className="pb-4">Available</p>
+              <input type="checkbox" className="toggle" onChange={() => (setChecked(!checked))} checked={checked} />
+            </div>
           </div>
 
-          <div className="">
-            <input type="text" placeholder="Enter text" className="mr-2 bg-black" />
-            <input type="number" placeholder="Enter number" className="mr-2 bg-black" />
-          </div>
-
-          <button onClick={() => setResult('📱') } > start </button>
-          {result && <p>{result}</p>}
-
-
-          
-
-          {/* <input type="text" placeholder="Enter text" className="mr-2" />
-          <input type="number" placeholder="Enter number" className="mr-2" />
-
-          <input type="text" placeholder="Enter text" className="mr-2" />
-          <input type="number" placeholder="Enter number" className="mr-2" />
-
-          <input type="text" placeholder="Enter text" className="mr-2" />
-          <input type="number" placeholder="Enter number" className="mr-2" /> */}
-          
-
- {/*       <ThirdwebResources /> */}
+        </div>
       </div>
     </main>
   );
 }
 
 function Header() {
+  return (
+    <header className="flex items-center justify-end h-20 w-full">
+      <div className="dropdown dropdown-hover">
+        <ConnectButton
+          client={client}
+          appMetadata={{
+            name: "No lie",
+            url: "https://github.com/Nauxscript/no-lie-lottery-machine",
+          }}
+        />
+        {/* <div tabIndex={0} role="button" className="btn m-1">Click</div> */}
+        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52">
+          <li><a>My Rulesets</a></li>
+          <li><a>My Rewards</a></li>
+        </ul>
+      </div>
+    </header>
+  )
+}
+
+function _Header() {
   return (
     <header className="flex flex-col items-center mb-20 md:mb-20">
       <Image
